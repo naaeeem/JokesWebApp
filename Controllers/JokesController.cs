@@ -25,6 +25,27 @@ namespace JokesWebApp.Controllers
             return View(await _context.Joke.ToListAsync());
         }
 
+        // GET: Jokes/ShowSearchForm
+        public async Task<IActionResult> ShowSearchForm()
+        {
+            return View();
+        }
+
+        
+        // POST: Jokes/ShowSearchResults
+        public async Task<IActionResult> ShowSearchResults(String SearchPhrase)
+        {
+            /*
+            var products =
+                _db.Products.Include(c => c.ProductTypes).Include(c => c.SpecialTags).
+                Where(c => c.Price >= lowPrice && c.Price <= largePrice).ToList();
+            */
+            return View(
+                "Index", 
+                await _context.Joke.Where(j => j.JokeQuestion.Contains(SearchPhrase)).ToListAsync()
+            );
+        }
+
         // GET: Jokes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
